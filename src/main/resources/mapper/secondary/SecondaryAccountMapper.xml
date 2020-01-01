@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chz.mapper.secondary.SecondaryAccountMapper">
+  <resultMap id="BaseResultMap" type="com.chz.pojo.Account">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="surplus" jdbcType="DOUBLE" property="surplus" />
+    <result column="remaining" jdbcType="DOUBLE" property="remaining" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, surplus, remaining
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_account
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_account
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chz.pojo.Account">
+    insert into tb_account (id, name, surplus, 
+      remaining)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{surplus,jdbcType=DOUBLE}, 
+      #{remaining,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chz.pojo.Account">
+    insert into tb_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="surplus != null">
+        surplus,
+      </if>
+      <if test="remaining != null">
+        remaining,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="surplus != null">
+        #{surplus,jdbcType=DOUBLE},
+      </if>
+      <if test="remaining != null">
+        #{remaining,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chz.pojo.Account">
+    update tb_account
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="surplus != null">
+        surplus = #{surplus,jdbcType=DOUBLE},
+      </if>
+      <if test="remaining != null">
+        remaining = #{remaining,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chz.pojo.Account">
+    update tb_account
+    set name = #{name,jdbcType=VARCHAR},
+      surplus = #{surplus,jdbcType=DOUBLE},
+      remaining = #{remaining,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

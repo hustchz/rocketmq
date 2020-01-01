@@ -2,7 +2,7 @@ spring:
   application:
     name: trade
   thymeleaf:
-    prefix: classpath:/templates
+    prefix: classpath:/templates/
     suffix: .jsp
     mode: HTML5
     encoding: UTF-8

@@ -8,7 +8,7 @@ import java.util.Date;
  * 雪花算法 实现
  * **/
 public class SnowFlakeUtils {
-    private final long startTimestamp = 1388505600000L;//起始时间戳
+    private long startTimestamp = 1388505600000L;//起始时间戳
 
     private final long dataCenterId = 5L;//机房ID所占位数
 
@@ -44,6 +44,19 @@ public class SnowFlakeUtils {
         }
         this.currentWorkId = workerId;
         this.currentDataCenterId = dataCenterId;
+    }
+
+    public SnowFlakeUtils(long workerId,long dataCenterId,long startTimestamp){
+        new SnowFlakeUtils(workerId,dataCenterId);
+        this.startTimestamp = startTimestamp;
+    }
+
+    public SnowFlakeUtils(long workerId,long dataCenterId,
+                          String datetime,String pattern) throws ParseException {
+        new SnowFlakeUtils(workerId,dataCenterId);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date date = simpleDateFormat.parse(datetime);
+        this.startTimestamp = date.getTime();
     }
     // 重点方法 得到下一个序列号 该方法需要保证线程安全
     public synchronized long getNextId() throws InterruptedException {

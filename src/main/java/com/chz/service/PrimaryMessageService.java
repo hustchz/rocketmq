@@ -8,7 +8,6 @@ import com.chz.enums.MessageStatus;
 public interface PrimaryMessageService {
 
     long updateMessageStatus(String messageId, MessageStatus messageStatus)throws Exception;//更新消息的状态
-
     // 新增加一个message
     long insertMessage()throws Exception;
 }

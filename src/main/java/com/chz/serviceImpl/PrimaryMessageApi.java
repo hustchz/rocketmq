@@ -1,4 +1,4 @@
-package com.chz.api;
+package com.chz.serviceImpl;
 
 import com.chz.enums.MessageStatus;
 import com.chz.mapper.primary.PrimaryMessageMapper;
@@ -6,11 +6,13 @@ import com.chz.pojo.Message;
 import com.chz.service.PrimaryMessageService;
 import com.chz.utils.SnowFlakeUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
 
-@Service
+@Service(value="primaryMessageService")
+@Transactional(value="primaryTransactionManager")
 public class PrimaryMessageApi implements PrimaryMessageService {
 
     private static final String PRODUCERID = "6618121763815698432";
@@ -32,11 +34,11 @@ public class PrimaryMessageApi implements PrimaryMessageService {
     public long insertMessage() throws Exception {
         // 添加一个新消息 这里模拟将消息的发送方和消费方ID指定
         SnowFlakeUtils snowFlakeUtils = new SnowFlakeUtils(2,4
-                ,"2017-01-01","YYYY-MM-dd");
+                ,"2015-01-01","YYYY-MM-dd");
         long messageId = snowFlakeUtils.getNextId();
         Message message = new Message();
         message.setId(String.valueOf(messageId));
-        message.setStatus(MessageStatus.NOT_CONSUME.name());
+        message.setStatus(MessageStatus.NOT_SEND.name());
         message.setProducerid(PRODUCERID);
         message.setConsumerid(CONSUMERID);
         message.setCreatetime(new Date());

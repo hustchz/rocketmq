@@ -1,18 +1,16 @@
-package com.chz.api;
+package com.chz.serviceImpl;
 
 import com.chz.enums.MessageStatus;
-import com.chz.mapper.primary.PrimaryMessageMapper;
 import com.chz.mapper.secondary.SecondaryMessageMapper;
 import com.chz.pojo.Message;
-import com.chz.service.PrimaryMessageService;
 import com.chz.service.SecondaryMessageService;
-import com.chz.utils.SnowFlakeUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
 
-@Service
+@Service(value="secondaryMessageService")
+@Transactional
 public class SecondaryMessageApi implements SecondaryMessageService {
 
     private static final String PRODUCERID = "6618121763815698432";
@@ -31,17 +29,7 @@ public class SecondaryMessageApi implements SecondaryMessageService {
     }
 
     @Override
-    public long insertMessage() throws Exception {
-        // 添加一个新消息 这里模拟将消息的发送方和消费方ID指定
-        SnowFlakeUtils snowFlakeUtils = new SnowFlakeUtils(2,4
-                ,"2017-01-01","YYYY-MM-dd");
-        long messageId = snowFlakeUtils.getNextId();
-        Message message = new Message();
-        message.setId(String.valueOf(messageId));
-        message.setStatus(MessageStatus.NOT_CONSUME.name());
-        message.setProducerid(PRODUCERID);
-        message.setConsumerid(CONSUMERID);
-        message.setCreatetime(new Date());
-        return secondaryMessageMapper.insert(message);
+    public long insertSelective(Message message) throws Exception {
+        return secondaryMessageMapper.insertSelective(message);
     }
 }

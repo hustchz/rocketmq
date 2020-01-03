@@ -21,13 +21,13 @@
     delete from tb_message
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.chz.pojo.SecondaryMessage">
+  <insert id="insert" parameterType="com.chz.pojo.Message">
     insert into tb_message (id, producerId, consumerId, 
       status, createtime)
     values (#{id,jdbcType=VARCHAR}, #{producerid,jdbcType=VARCHAR}, #{consumerid,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.chz.pojo.SecondaryMessage">
+  <insert id="insertSelective" parameterType="com.chz.pojo.Message">
     insert into tb_message
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chz.pojo.SecondaryMessage">
+  <update id="updateByPrimaryKeySelective" parameterType="com.chz.pojo.Message">
     update tb_message
     <set>
       <if test="producerid != null">
@@ -82,7 +82,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.chz.pojo.SecondaryMessage">
+  <update id="updateByPrimaryKey" parameterType="com.chz.pojo.Message">
     update tb_message
     set producerId = #{producerid,jdbcType=VARCHAR},
       consumerId = #{consumerid,jdbcType=VARCHAR},

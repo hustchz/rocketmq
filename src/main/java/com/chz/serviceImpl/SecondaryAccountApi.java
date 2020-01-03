@@ -1,17 +1,18 @@
-package com.chz.api;
+package com.chz.serviceImpl;
 
-import com.chz.mapper.primary.PrimaryAccountMapper;
 import com.chz.mapper.secondary.SecondaryAccountMapper;
 import com.chz.pojo.Account;
 import com.chz.service.SecondaryAccountService;
+import com.chz.service.SecondaryMessageService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
 /**
  * secondary数据源中的账户接口具体实现
  * **/
-@Service
+@Service(value = "secondaryAccountService")
 public class SecondaryAccountApi implements SecondaryAccountService {
 
     private static final String USERID = "6618121763861835776";//直接给出用户ID,做模拟
@@ -19,10 +20,19 @@ public class SecondaryAccountApi implements SecondaryAccountService {
     @Resource
     private SecondaryAccountMapper secondaryAccountMapper;
 
+    @Resource
+    private SecondaryMessageService secondaryMessageService;
+
+    @Transactional(value = "secondaryTransactionManager")
     @Override
-    public long savingMoney(double saveMoney) throws Exception {
+    public long updateByPrimaryKeySelective(Account account) throws Exception {
+        return secondaryAccountMapper.updateByPrimaryKeySelective(account);
+    }
+
+    @Override
+    public long saveMoney(double saveMoney) throws Exception {
         //在这里做一个模拟，对特定用户的账户余额进行修改
-        Account account = secondaryAccountMapper.selectByPrimaryKey(USERID);
+        Account account = selectByPrimaryKey(USERID);
         if(null==account){
             throw new Exception("没有这个用户");
         }
@@ -35,7 +45,7 @@ public class SecondaryAccountApi implements SecondaryAccountService {
     @Override
     public long drawingMoney(double drawingMoney) throws Exception {
         //在这里做一个模拟，对特定用户的账户余额进行修改
-        Account account = secondaryAccountMapper.selectByPrimaryKey(USERID);
+        Account account = selectByPrimaryKey(USERID);
         if(null==account){
             throw new Exception("没有这个用户");
         }
@@ -43,5 +53,11 @@ public class SecondaryAccountApi implements SecondaryAccountService {
         surplus -= drawingMoney;
         account.setSurplus(surplus);
         return secondaryAccountMapper.updateByPrimaryKeySelective(account);
+    }
+
+    @Override
+    public Account selectByPrimaryKey(String id) throws Exception {
+        Account account = secondaryAccountMapper.selectByPrimaryKey(USERID);
+        return account;
     }
 }

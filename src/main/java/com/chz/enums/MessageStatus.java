@@ -1,7 +1,7 @@
 package com.chz.enums;
 
 public enum MessageStatus {
-    NOT_CONSUME(0),SUCCESS_CONSUME(1),FAIL_CONSUME(2);
+    NOT_SEND(0),SUCCESS_SEND(1),NOT_CONSUME(2),SUCCESS_CONSUME(3),FAIL_CONSUME(4);
     private int value;
     MessageStatus(int value){
         this.value = value;

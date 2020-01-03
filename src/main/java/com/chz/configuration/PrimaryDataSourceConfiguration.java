@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 /**
+ * 利用DataSource 去构建 不同的事务管理器，并在@Transactional中进行声明
  * springboot + mybatis 操作多个数据源
  * **/
 @Configuration

@@ -1,22 +1,28 @@
-package com.chz.api;
+package com.chz.serviceImpl;
 
 import com.chz.mapper.primary.PrimaryAccountMapper;
 import com.chz.pojo.Account;
 import com.chz.service.PrimaryAccountService;
+import com.chz.service.PrimaryMessageService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
 /**
- * primary数据源中的账户接口具体实现
+ * primary数据源中的账户接口具体实现 带事务
  * **/
-@Service
+@Service(value = "primaryAccountService")
+@Transactional(value="primaryTransactionManager")
 public class PrimaryAccountApi implements PrimaryAccountService {
 
     private static final String USERID = "6618121763815698432";//直接给出用户ID,做模拟
 
     @Resource
     private PrimaryAccountMapper primaryAccountMapper;
+
+    @Resource
+    private PrimaryMessageService primaryMessageService;
 
     @Override
     public long savingMoney(double saveMoney) throws Exception {

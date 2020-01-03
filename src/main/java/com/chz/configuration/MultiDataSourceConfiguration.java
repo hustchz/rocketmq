@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 
 /**
- * 多数据源的数据库扫描类  使用Template
+ * 多数据源的数据库扫描类  初始化多个DataSource
  * **/
 @Configuration
 public class MultiDataSourceConfiguration {

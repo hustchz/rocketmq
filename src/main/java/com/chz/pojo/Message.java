@@ -2,7 +2,7 @@ package com.chz.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
-
+@org.msgpack.annotation.Message
 public class Message implements Serializable {
     private String id;
 

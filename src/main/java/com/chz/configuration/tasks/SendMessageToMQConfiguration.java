@@ -18,6 +18,7 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -75,7 +76,12 @@ public class SendMessageToMQConfiguration implements SchedulingConfigurer {
 
                     for(Message _message:notConsumeMessages){
                         org.apache.rocketmq.common.message.Message mess =
-                                new org.apache.rocketmq.common.message.Message(topic,tag,abstractMessageEncodeAndDecode.encode(_message));
+                                null;
+                        try {
+                            mess = new org.apache.rocketmq.common.message.Message(topic,tag,abstractMessageEncodeAndDecode.encode(_message));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         try {
                             defaultMQProducer.send(mess, new SendCallback() {
                                 @Override

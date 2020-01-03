@@ -68,6 +68,12 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.25</version>
         </dependency>
+        <!-- messagePack -->
+        <dependency>
+            <groupId>org.msgpack</groupId>
+            <artifactId>msgpack</artifactId>
+            <version>0.6.12</version>
+        </dependency>
         <!-- 热部署 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

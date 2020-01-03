@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * 读取rocketMQ配置文件 消费端
@@ -98,7 +99,7 @@ public class ConsumerConfiguration {
                            System.out.println("不消费重复消息");
                         }
                     }
-                } catch (JSONException e) {
+                } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;

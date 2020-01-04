@@ -83,7 +83,7 @@ public class ConsumerConfiguration {
                         System.out.println("开始消费");
                         msg = aMsgList;
                         // 得到消息进行反序列化
-                        Message _message = (Message)abstractMessageEncodeAndDecode.decode(msg.getBody());
+                        Message _message = abstractMessageEncodeAndDecode.decode(msg.getBody(),Message.class);
                         String messageId = _message.getId();
                         Message _msg = secondaryMessageMapper.selectByPrimaryKey(messageId);
                         if(null == _msg){

@@ -10,5 +10,5 @@ public abstract class AbstractMessageEncodeAndDecode {
 
     public abstract byte [] encode(@NotNull Object msg) throws IOException;
 
-    public abstract Object decode(@NotNull byte[] bytes) throws IOException;
+    public abstract <T extends Object> T decode(@NotNull byte[] bytes,Class<T> clazz) throws IOException;
 }
